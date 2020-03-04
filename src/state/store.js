@@ -8,12 +8,11 @@ const devMode = process.env.NODE_ENV === 'development';
 
 const sagaMiddleware = createSagaMiddleware();
 
-export default (preloadedState = reducer()) => {
+export default () => {
     const store = configureStore({
         reducer,
         devTools: devMode,
-        middleware: [sagaMiddleware],
-        preloadedState
+        middleware: [sagaMiddleware]
     });
     sagaMiddleware.run(saga);
     return store;
