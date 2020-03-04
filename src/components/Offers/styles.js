@@ -21,7 +21,7 @@ export const useStyles = makeStyles(({ spacing }) => {
 
         list: {
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 520px))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
             gridGap: spacing(3)
         }
     };

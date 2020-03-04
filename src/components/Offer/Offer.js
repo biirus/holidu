@@ -1,11 +1,18 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+
+import BedroomIcon from '@material-ui/icons/KingBed';
+import GuestsIcon from '@material-ui/icons/Group';
 
 import { useStyles } from './styles';
 
@@ -13,37 +20,52 @@ const Offer = ({ offer }) => {
     const classes = useStyles();
 
     console.log('offer', offer);
-    console.log('offer.photos[0].m', offer.photos[0].m);
 
     return (
-        <Card>
-            <CardActionArea>
+        <Card className={classes.root}>
+            <div>
                 <CardMedia
                     className={classes.media}
                     image={offer.photos[0].m}
-                    title="Contemplative Reptile"
+                    title={offer.location.name}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography
+                        className={classes.title}
+                        gutterBottom
+                        variant="h5"
+                        component="h2"
+                        title={offer.details.name}
+                    >
                         {offer.details.name}
                     </Typography>
-                    <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                    >
-                        Lizards are a widespread group of squamate reptiles,
-                        with over 6,000 species, ranging across all continents
-                        except Antarctica
-                    </Typography>
+                    <List>
+                        <ListItem dense>
+                            <ListItemIcon>
+                                <BedroomIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Bedrooms" />
+                            <ListItemSecondaryAction>
+                                {offer.details.bedroomsCount}
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                        <ListItem dense>
+                            <ListItemIcon>
+                                <GuestsIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Maximum guests" />
+                            <ListItemSecondaryAction>
+                                {offer.details.guestsCount}
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    </List>
                 </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                    Share
-                </Button>
-                <Button size="small" color="primary">
-                    Learn More
+            </div>
+
+            <CardActions className={classes.actions}>
+                <Typography variant="h4">{offer.price.total}</Typography>
+                <Button variant="contained" color="primary">
+                    View Offer
                 </Button>
             </CardActions>
         </Card>
