@@ -90,7 +90,7 @@ const Offer = ({ offer }) => {
             </div>
 
             <CardActions className={classes.actions}>
-                <Typography variant="h4">
+                <Typography variant="h4" noWrap>
                     {currencies[offer.price.currency]} {offer.price.daily}{' '}
                     <Typography component="span" color="textSecondary">
                         per night
