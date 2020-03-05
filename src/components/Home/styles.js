@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import wave from 'assets/wave.svg';
 
-export const useStyles = makeStyles(({ spacing }) => {
+export const useStyles = makeStyles(({ spacing, breakpoints }) => {
     const formSize = spacing(40);
 
     return {
@@ -34,6 +34,16 @@ export const useStyles = makeStyles(({ spacing }) => {
             gridTemplateColumns: '1fr',
             gridGap: spacing(2),
             justifyItems: 'end'
+        },
+
+        [breakpoints.down('sm')]: {
+            root: {
+                padding: spacing(5)
+            },
+
+            hero: {
+                gridTemplateColumns: `1fr`
+            }
         }
     };
 });

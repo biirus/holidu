@@ -1,12 +1,9 @@
 import { connect } from 'react-redux';
-import { fetch } from 'state/offers-slice';
+import { offerSelector } from 'state/offers-slice';
 
-export default connect(
-    (state, props) => {
-        return {
-            ui: state.ui,
-            offer: state.offers.offersMap[props.id]
-        };
-    },
-    { fetch }
-);
+export default connect((state, props) => {
+    return {
+        ui: state.ui,
+        offer: offerSelector(state.offers, props.id)
+    };
+});

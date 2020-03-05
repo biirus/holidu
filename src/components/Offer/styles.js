@@ -24,6 +24,11 @@ export const useStyles = makeStyles(({ spacing }) => {
             textOverflow: 'ellipsis'
         },
 
+        rating: {
+            display: 'flex',
+            alignItems: 'center'
+        },
+
         actions: {
             justifyContent: 'space-between',
             padding: spacing(2)

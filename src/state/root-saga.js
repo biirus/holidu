@@ -3,18 +3,18 @@ import * as ui from 'state/ui-slice';
 import * as offers from 'state/offers-slice';
 
 const api = {
-    fetch: async () => {
-        const result = await fetch(process.env.REACT_APP_API_URL);
+    fetch: async ({ url }) => {
+        const result = await fetch(process.env.REACT_APP_API_URL + url);
         const data = await result.json();
         return data;
     }
 };
 
-function* fetchData() {
+function* fetchData(action) {
     yield put(ui.pending());
 
     try {
-        const data = yield call(api.fetch);
+        const data = yield call(api.fetch, action.payload);
         yield put(offers.success(data));
         yield put(ui.success());
     } catch (e) {

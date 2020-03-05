@@ -1,15 +1,16 @@
 import React from 'react';
-import { useRoutes } from 'hookrouter';
+import { useRoutes, useRedirect } from 'hookrouter';
 import HomePage from 'components/Home';
 import OffersPage from 'components/Offers';
 
 const routes = {
-    '/': () => <HomePage />,
+    '/home': () => <HomePage />,
     '/offers': () => <OffersPage />
 };
 
 export default function App() {
-    const routeResult = useRoutes(routes);
+    // not so conviniet =)
+    useRedirect('/', '/home', { searchTerm: 'Munich, Germany' });
 
-    return routeResult || <h1>NOT FOUND</h1>;
+    return useRoutes(routes) || <h1>NOT FOUND</h1>;
 }

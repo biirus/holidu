@@ -1,15 +1,21 @@
 import React, { useCallback } from 'react';
 import { Typography, TextField, Button } from '@material-ui/core';
 
+import { useSearchForm } from 'hooks/use-search-form';
 import { navigate } from 'hookrouter';
 import { useStyles } from './styles';
 
 function App() {
     const classes = useStyles();
+    const [search, handleChange] = useSearchForm();
 
-    const showOffers = useCallback(() => {
-        navigate('/offers');
-    }, []);
+    const showOffers = useCallback(
+        e => {
+            e.preventDefault();
+            navigate('/offers', false, { searchTerm: search });
+        },
+        [search]
+    );
 
     return (
         <div className={classes.root}>
@@ -35,6 +41,8 @@ function App() {
                         fullWidth
                         variant="filled"
                         label="Where do you want to go?"
+                        value={search}
+                        onChange={handleChange}
                     />
 
                     <Button color="primary" variant="contained" type="submit">

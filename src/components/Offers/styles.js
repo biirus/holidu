@@ -5,7 +5,6 @@ export const useStyles = makeStyles(({ spacing }) => {
     return {
         root: {
             minHeight: '100vh',
-            padding: spacing(3),
 
             background: `url(${wave}), url(${wave}), url(${wave}), #e4f1fd`,
             backgroundPosition:
@@ -15,14 +14,24 @@ export const useStyles = makeStyles(({ spacing }) => {
             backgroundRepeat: 'no-repeat'
         },
 
-        searchParams: {
+        list: {
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridGap: spacing(3),
+            padding: spacing(3)
+        },
+
+        error: {
+            margin: spacing(3),
             padding: spacing(2)
         },
 
-        list: {
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-            gridGap: spacing(3)
+        specialOffers: {
+            margin: spacing(3)
+        },
+
+        text: {
+            padding: spacing(2)
         }
     };
 });

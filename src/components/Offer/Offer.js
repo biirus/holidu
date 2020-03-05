@@ -10,16 +10,21 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
+import Rating from '@material-ui/lab/Rating';
 
 import BedroomIcon from '@material-ui/icons/KingBed';
 import GuestsIcon from '@material-ui/icons/Group';
+import AreaIcon from '@material-ui/icons/AspectRatio';
 
 import { useStyles } from './styles';
 
+const currencies = {
+    EUR: '€',
+    USD: '$'
+};
+
 const Offer = ({ offer }) => {
     const classes = useStyles();
-
-    console.log('offer', offer);
 
     return (
         <Card className={classes.root}>
@@ -39,8 +44,19 @@ const Offer = ({ offer }) => {
                     >
                         {offer.details.name}
                     </Typography>
+
+                    <Typography component="div" className={classes.rating}>
+                        <Rating
+                            name="read-only"
+                            value={(offer.rating.value / 100) * 5}
+                            max={5}
+                            readOnly
+                        />{' '}
+                        ({offer.rating.count})
+                    </Typography>
+
                     <List>
-                        <ListItem dense>
+                        <ListItem dense disableGutters>
                             <ListItemIcon>
                                 <BedroomIcon />
                             </ListItemIcon>
@@ -49,7 +65,7 @@ const Offer = ({ offer }) => {
                                 {offer.details.bedroomsCount}
                             </ListItemSecondaryAction>
                         </ListItem>
-                        <ListItem dense>
+                        <ListItem dense disableGutters>
                             <ListItemIcon>
                                 <GuestsIcon />
                             </ListItemIcon>
@@ -58,12 +74,28 @@ const Offer = ({ offer }) => {
                                 {offer.details.guestsCount}
                             </ListItemSecondaryAction>
                         </ListItem>
+                        {offer.details.area && (
+                            <ListItem dense disableGutters>
+                                <ListItemIcon>
+                                    <AreaIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Area" />
+                                <ListItemSecondaryAction>
+                                    {offer.details.area.value} m<sup>2</sup>
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                        )}
                     </List>
                 </CardContent>
             </div>
 
             <CardActions className={classes.actions}>
-                <Typography variant="h4">{offer.price.total}</Typography>
+                <Typography variant="h4">
+                    {currencies[offer.price.currency]} {offer.price.daily}{' '}
+                    <Typography component="span" color="textSecondary">
+                        per night
+                    </Typography>
+                </Typography>
                 <Button variant="contained" color="primary">
                     View Offer
                 </Button>

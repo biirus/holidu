@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 
 const initialState = {
     offersMap: {},
@@ -10,27 +10,47 @@ const initialState = {
     }
 };
 
+const proxyOfferId = (_, offerID) => offerID;
+const offersMap = state => state.offersMap;
+const offersList = state => state.offers;
+const cursor = state => state.cursor;
+
+export const cursorSelector = createSelector([cursor], cursor => cursor);
+export const offersIDsSelector = createSelector([offersList], list => list);
+export const offerSelector = createSelector(
+    [offersMap, proxyOfferId],
+    (offersMap, offerID) => {
+        return offersMap[offerID];
+    }
+);
+
 const offersSlice = createSlice({
     name: 'offers',
     initialState,
     reducers: {
-        fetch(state, action) {
-            console.log('action', action);
+        fetch(state, { payload }) {
+            if (payload.cleanFirst) {
+                state.cursor = initialState.cursor;
+                state.offers = [];
+                state.offersMap = {};
+            }
+
             return state;
         },
+
         success(state, { payload }) {
             const { offers, metaData } = payload;
 
             state.cursor = metaData.cursor;
+            state.offers = state.offers.concat(offers.map(offer => offer.id));
 
             offers.forEach(offer => {
                 state.offersMap[offer.id] = offer;
             });
 
-            state.offers = offers.map(offer => offer.id);
-
             return state;
         },
+
         error(state, action) {
             return state;
         }

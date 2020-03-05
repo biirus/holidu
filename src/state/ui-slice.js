@@ -26,7 +26,6 @@ const uiSlice = createSlice({
         },
         idle(state, { payload }) {
             state.state = 'idle';
-            state.details = payload || null;
             return state;
         }
     }
